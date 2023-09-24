@@ -74,3 +74,5 @@ fs.createReadStream("test.png").pipe(new PNG()).on("parsed", (data) => {
 
     console.log(out);
 });
+
+console.log(codes)
