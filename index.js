@@ -26,6 +26,6 @@ const data = readFileSync("./test.txt");
 
 await encodeTextToImage(data, "output.png");
 
-createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
-    console.log(data, data.toString());
-});
+// createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
+//     console.log(data, data.toString());
+// });
