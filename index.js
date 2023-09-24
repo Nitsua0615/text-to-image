@@ -39,6 +39,7 @@ function encodeTextToImage(data, filename) {
             console.log("Gamma:", png.gamma);
             console.log("Writable:", png.writable);
             console.log("Readable:", png.readable);
+            console.log("Text:", png.data.toString());
             resolve(true);
         });
     });

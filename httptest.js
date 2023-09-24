@@ -1,7 +1,5 @@
-// import https from "https";
-// import { PNG } from "pngjs";
-const https = require('https');
-const PNG = require("pngjs").PNG;
+import https from "https";
+import { PNG } from "pngjs";
 
 const imageUrl = 'https://raw.githubusercontent.com/Nitsua0615/text-to-image/main/output.png';
 
