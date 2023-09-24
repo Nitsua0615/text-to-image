@@ -21,8 +21,7 @@ function encodeTextToImage(data, filename) {
 
         const png = new PNG({ 
             width: targetWidth, 
-            height: targetHeight, 
-            deflateLevel: 0 // Disable compression
+            height: targetHeight
         });
     
         for (let i = 0; i < data.length; i += 4) {
@@ -48,7 +47,7 @@ function encodeTextToImage(data, filename) {
 const data = readFileSync("./test.txt");
 // const data = Buffer.from("This is a test");
 
-await encodeTextToImage(data, "outputn.png");
+await encodeTextToImage(data, "output.png");
 
 // createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
 //     console.log(data);
