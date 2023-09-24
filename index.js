@@ -17,9 +17,9 @@ function encodeTextToImage(data, filename) {
 }
 
 const data = readFileSync("./test.txt");
-encodeTextToImage(data, "test.png");
+encodeTextToImage(data, "output.png");
 
-createReadStream("test.png").pipe(new PNG()).on("parsed", (data) => {
+createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
     console.log(data, data.toString());
     console.log(new Uint8Array(data));
 });
