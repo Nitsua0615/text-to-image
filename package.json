@@ -1,0 +1,11 @@
+{
+  "name": "text-image",
+  "module": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  }
+}
