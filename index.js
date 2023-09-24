@@ -3,8 +3,6 @@ import { PNG } from "pngjs";
 
 function encodeTextToImage(data, filename) {
     return new Promise((resolve) => {
-        // const width = Math.ceil(Math.sqrt(data.length / 4));
-        // const height = Math.ceil(data.length / (4 * width));
         const pixelCount = Math.ceil(data.length / 4);
         let targetWidth = Math.ceil(Math.sqrt(pixelCount));
         let minNulls = (targetWidth * Math.ceil(pixelCount / targetWidth)) - pixelCount;
@@ -43,5 +41,5 @@ const data = readFileSync("./test.txt");
 await encodeTextToImage(data, "output.png");
 
 createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
-    console.log(data, data.toString());
+    console.log(data);
 });
