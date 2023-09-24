@@ -62,8 +62,6 @@ for (let i = 0; i < codes.length; i += 3) {
 myPNG.saveToFile("test.png");
 
 fs.createReadStream("test.png").pipe(new PNG()).on("parsed", (data) => {
-    let unicodeStatus = 0;
-    let unicodeCharCode = 0;
     let out = "";
 
     for (let i = 0; i < data.length; i += 4) {
@@ -71,25 +69,7 @@ fs.createReadStream("test.png").pipe(new PNG()).on("parsed", (data) => {
         const g = data[i + 1];
         const b = data[i + 2];
 
-        if (r === 1 || g === 1 || b === 1) {
-            console.log("unicode start");
-            unicodeStatus = 1;
-            unicodeCharCode = 0; // Reset the Unicode character code only at the start
-        }
-
-        if (r === 2 || g === 2 || b === 2) {
-            console.log("unicode end");
-            unicodeStatus = 2;
-            out += String.fromCharCode(unicodeCharCode);
-            console.log(unicodeCharCode)
-        }
-
-        if (unicodeStatus === 1) {
-            unicodeCharCode += r + g + b;
-            console.log(unicodeCharCode)
-        } else if (unicodeStatus === 0) {
-            out += String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b);
-        }
+        out += String.fromCharCode(r) + String.fromCharCode(g) + String.fromCharCode(b);
     }
 
     console.log(out);
