@@ -16,7 +16,9 @@ function encodeTextToImage(data, filename) {
     png.pack().pipe(createWriteStream(filename));
 }
 
-const data = Buffer.from("This is a test"); //readFileSync("./test.txt");
+const data = readFileSync("./test.txt");
+// const data = Buffer.from("This is a test");
+
 encodeTextToImage(data, "output.png");
 
 createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
