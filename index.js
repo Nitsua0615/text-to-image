@@ -19,7 +19,11 @@ function encodeTextToImage(data, filename) {
         
         const targetHeight = Math.round(pixelCount / targetWidth); // just in case. i fucking hate IEEE 754
 
-        const png = new PNG({ width: targetWidth, height: targetHeight });
+        const png = new PNG({ 
+            width: targetWidth, 
+            height: targetHeight, 
+            deflateLevel: 0 // Disable compression
+        });
     
         for (let i = 0; i < data.length; i += 4) {
             for (let offset = 0; offset < 4; offset++) {
@@ -30,6 +34,12 @@ function encodeTextToImage(data, filename) {
         }
         
         png.pack().pipe(createWriteStream(filename)).on("finish", () => {
+            console.log("Width:", png.width);
+            console.log("Height:", png.height);
+            console.log("Data:", png.data);
+            console.log("Gamma:", png.gamma);
+            console.log("Writable:", png.writable);
+            console.log("Readable:", png.readable);
             resolve(true);
         });
     });
@@ -40,6 +50,6 @@ const data = readFileSync("./test.txt");
 
 await encodeTextToImage(data, "output.png");
 
-createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
-    console.log(data);
-});
+// createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
+//     console.log(data);
+// });
