@@ -36,7 +36,7 @@ for (let i = 0; i < content.length; i += 3) {
     png.data[idx] = r;
     png.data[idx + 1] = g;
     png.data[idx + 2] = b;
-    // png.data[idx + 3] = 255//a;
+    png.data[idx + 3] = 255//a;
 
     dataIdx++;
 }
@@ -46,6 +46,7 @@ png.pack().pipe(fs.createWriteStream("test.png"));
 console.log(`Image created with dimensions: ${width}x${height}`);
 
 fs.createReadStream("test.png").pipe(new PNG()).on("parsed", (data) => {
-    console.log(data, data.toString());
-    console.log(new Uint8Array(data));
+    console.log(data);
+    // console.log(data, data.toString());
+    // console.log(new Uint8Array(data));
 });
