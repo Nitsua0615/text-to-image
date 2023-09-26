@@ -3,7 +3,7 @@ import { PNG } from "pngjs";
 
 const USE_PNGJS = !0;
 
-const imageUrl = 'https://raw.githubusercontent.com/Nitsua0615/text-to-image/main/output.png';
+const imageUrl = 'https://raw.githubusercontent.com/Nitsua0615/text-to-image/main/output-1695740735755.png';
 
 function downloadImage(url, callback) {
     https.get(url, (response) => {
