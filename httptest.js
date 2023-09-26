@@ -1,6 +1,8 @@
 import https from "https";
 import { PNG } from "pngjs";
 
+const USE_PNGJS = !0;
+
 const imageUrl = 'https://raw.githubusercontent.com/Nitsua0615/text-to-image/main/output.png';
 
 function downloadImage(url, callback) {
@@ -23,15 +25,19 @@ function downloadImage(url, callback) {
 }
 
 function parseImage(buffer, callback) {
-    const png = new PNG();
-    png.parse(buffer, (error, data) => {
-        if (error) {
-            callback(error);
-            return;
-        }
-
-        callback(null, data);
-    });
+    if (USE_PNGJS) {
+        const png = new PNG();
+        png.parse(buffer, (error, data) => {
+            if (error) {
+                callback(error);
+                return;
+            }
+    
+            callback(null, data);
+        });
+    } else {
+        console.log("WARNING:", "Not using PNGJS! This is currently experimental.");
+    }
 }
 
 downloadImage(imageUrl, (downloadError, imageBuffer) => {
@@ -49,6 +55,6 @@ downloadImage(imageUrl, (downloadError, imageBuffer) => {
         console.log('Image width:', imageData.width);
         console.log('Image height:', imageData.height);
         console.log('Pixel data:', imageData.data);
-        console.log('To text:', imageData.data.toString().replaceAll(String.fromCharCode(0), ""));
+        console.log('To text:\n' + imageData.data.toString().replaceAll(String.fromCharCode(0), ""));
     });
 });
