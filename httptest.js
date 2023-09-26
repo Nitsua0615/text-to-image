@@ -55,6 +55,6 @@ downloadImage(imageUrl, (downloadError, imageBuffer) => {
         console.log('Image width:', imageData.width);
         console.log('Image height:', imageData.height);
         console.log('Pixel data:', imageData.data);
-        console.log('To text:\n' + imageData.data.toString().replaceAll(String.fromCharCode(0), ""));
+        console.log('To text:\n' + imageData.data.toString().replaceAll(String.fromCharCode(0), "").replaceAll(String.fromCharCode(65533), ""));
     });
 });

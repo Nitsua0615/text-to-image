@@ -33,9 +33,7 @@ function encodeTextToImage(data, filename) {
 
         const png = new PNG({ 
             width: targetWidth, 
-            height: targetHeight,
-            // colorType: 2,
-            // inputColorType: 2,
+            height: targetHeight
         });
     
         let dataIdx = 0;
