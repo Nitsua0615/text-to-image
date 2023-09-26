@@ -1,9 +1,21 @@
 import { createWriteStream, readFileSync, createReadStream } from "fs";
 import { PNG } from "pngjs";
 
+function readColor(buffer, index, num = 4) {
+    let rgbOa = [];
+
+    for (let offset = 0; offset < num; offset++) {
+        try {
+            rgbOa.push(buffer.readUInt8(index + offset));
+        } catch (e) {}
+    }
+
+    return rgbOa;
+}
+
 function encodeTextToImage(data, filename) {
     return new Promise((resolve) => {
-        const pixelCount = Math.ceil(data.length / 4);
+        const pixelCount = Math.ceil(data.length / 3);
         let targetWidth = Math.ceil(Math.sqrt(pixelCount));
         let minNulls = (targetWidth * Math.ceil(pixelCount / targetWidth)) - pixelCount;
         
@@ -26,12 +38,16 @@ function encodeTextToImage(data, filename) {
             // inputColorType: 2,
         });
     
-        for (let i = 0; i < data.length; i += 4) {
-            for (let offset = 0; offset < 4; offset++) {
-                const dataIndex = ((png.width * Math.floor(i / (4 * targetWidth)) + (i / 4) % targetWidth) << 2) + offset;
-                if (dataIndex >= data.length) continue;
-                png.data[dataIndex] = data.readUInt8(i + offset);
-            }
+        let dataIdx = 0;
+        for (let i = 0; i < data.length; i += 3) {
+            const [r, g, b] = readColor(data, i, 3);
+
+            const idx = (png.width * (Math.floor(dataIdx / targetWidth)) + (dataIdx % targetWidth)) << 2;
+            png.data[idx] = r;
+            png.data[idx + 1] = g;
+            png.data[idx + 2] = b;
+            png.data[idx + 3] = 255;
+            dataIdx++;
         }
         
         png.pack().pipe(createWriteStream(filename)).on("finish", () => {
@@ -56,5 +72,5 @@ createReadStream("output.png").pipe(new PNG()).on("parsed", (data) => {
     console.log("-");
     console.log("Load:");
     console.log(data);
-    console.log(data.toString());
+    console.log(data.toString().replaceAll(String.fromCharCode(65533), ""));
 });
