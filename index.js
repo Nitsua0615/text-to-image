@@ -26,7 +26,8 @@ function encodeTextToImage(data, filename) {
         }
 
         png.pack().pipe(createWriteStream(filename)).on("finish", () => {
-            console.log(`Width: ${png.width}\nHeight: ${png.height}\nData: ${Buffer.from(png.data).filter(b => b !== 255 && b !== 0).toString()}`);
+            // console.log(`Width: ${png.width}\nHeight: ${png.height}\nData: ${Buffer.from(png.data).filter(b => b !== 255 && b !== 0).toString()}`);
+            console.log(`Width: ${png.width}\nHeight: ${png.height}`);
             resolve(true);
         });
     });
