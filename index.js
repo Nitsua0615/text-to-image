@@ -16,7 +16,7 @@ function encodeTextToImage(data, filename) {
         const targetHeight = Math.round(pixelCount / targetWidth);
         const png = new PNG({ width: targetWidth, height: targetHeight });
 
-        for (let dataIdx = 0, i = 0; i < data.length; i += 3, dataIdx++) {
+        for (let dataIdx = 0, let i = 0; i < data.length; i += 3, dataIdx++) {
             const [r, g, b] = data.slice(i, i + 3);
             const idx = (png.width * (Math.floor(dataIdx / targetWidth)) + (dataIdx % targetWidth)) << 2;
             png.data[idx] = r;
